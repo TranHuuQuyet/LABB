@@ -1,0 +1,93 @@
+================================================================================
+INFORMATION SECURITY COURSE PROJECT - EXPERIMENTAL EVALUATION
+Student Name : TRAN HUU QUYET
+Student ID   : 066206014296
+Algorithms   : 1. AES-128 (Symmetric) | 2. RSA (Asymmetric, SID mod 3 = 0)
+               3. SHA-256 (Hash)      | 4. DSA (Digital Signature, SID mod 4 = 2)
+Implementation: 100% Python from first principles (No external crypto libs)
+================================================================================
+
+[SECTION 1: SHA-256 CRYPTOGRAPHIC HASH EVALUATION]
+  Test Vector 1: Input len = 3 bytes
+    Expected: ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+    Computed: ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+    Status  : PASSED (MATCH NIST KAT)
+  Test Vector 2: Input len = 0 bytes
+    Expected: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    Computed: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    Status  : PASSED (MATCH NIST KAT)
+  Test Vector 3: Input len = 56 bytes
+    Expected: 248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1
+    Computed: 248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1
+    Status  : PASSED (MATCH NIST KAT)
+
+  SHA-256 Computational Throughput Benchmark:
+    Payload:  1 KB | Time:    7.75 ms | Speed:   129.01 KB/s
+    Payload: 10 KB | Time:   74.76 ms | Speed:   133.76 KB/s
+    Payload: 50 KB | Time:  437.29 ms | Speed:   114.34 KB/s
+
+[SECTION 2: AES-128 SYMMETRIC ENCRYPTION EVALUATION]
+  2.1 Student Secret Key Derivation (Section 1.1):
+    Input Name String     : "TRAN HUU QUYET"
+    Computed SHA-256 Hash : b90d458f695d64c3aaedc61180c96c66d43bbd5c677e7d9c669820f729e771c0
+    AES-128 Secret Key    : b90d458f695d64c3aaedc61180c96c66 (First 128 bits / 16 bytes)
+
+  2.2 NIST FIPS 197 Standard Single-Block KAT:
+    Plaintext : 6bc1bee22e409f96e93d7e117393172a
+    Ciphertext: 3ad77bb40d7a3660a89ecaf32466ef97
+    Expected  : 3ad77bb40d7a3660a89ecaf32466ef97
+    Status    : PASSED (MATCH NIST KAT)
+    Decryption: PASSED (Match Plaintext)
+
+  2.3 AES-128-CBC with Student Key:
+    Original Message : Course Project: Information Security by TRAN HUU QUYET - SID 066206014296
+    Ciphertext (hex) : 8cae04b4fdacd8126b1287073c40e2b38c077829fda0ca88b53f0538dc8b9f5790b54b483235ac594a2311520d5d76eb71fd7d696b7313ef2eb2f461583c6af77a8adf1c465055ad21bbf6b75052ed03
+    Decrypted Message: Course Project: Information Security by TRAN HUU QUYET - SID 066206014296
+    Integrity Check  : PASSED (Exact match)
+
+  AES-128 CBC Benchmark:
+    Payload:  1 KB | Enc: 155.89 ms (   6.41 KB/s) | Dec: 350.85 ms (   2.85 KB/s)
+    Payload:  2 KB | Enc: 259.90 ms (   7.70 KB/s) | Dec: 490.40 ms (   4.08 KB/s)
+    Payload:  5 KB | Enc: 546.50 ms (   9.15 KB/s) | Dec: 1268.97 ms (   3.94 KB/s)
+
+[SECTION 3: RSA ASYMMETRIC CRYPTOGRAPHY EVALUATION (SID mod 3 = 0)]
+  3.1 Pedagogical Worked Example (p=61, q=53):
+    Modulus n = 3233, phi(n) = 3120
+    Public exponent e = 17, Private exponent d = 2753
+    Message m = 65, Ciphertext c = 2790, Decrypted = 65
+    Correctness: PASSED
+
+  3.2 Industrial-Grade Key Generation (1024-bit RSA):
+    Key Generation Time : 524.72 ms
+    Modulus n bit length: 1024 bits
+    Prime p bit length  : 512 bits
+    Prime q bit length  : 512 bits
+    Plaintext Message   : "Hello RSA - TRAN HUU QUYET"
+    Ciphertext Integer  : 9208011028874388959141784278138749284917... (truncated)
+    Decrypted Message   : "Hello RSA - TRAN HUU QUYET"
+    Encryption Time     :  0.164 ms
+    Decryption Time     : 10.574 ms
+    Roundtrip Status    : PASSED (Exact match)
+
+[SECTION 4: DSA DIGITAL SIGNATURE EVALUATION (SID mod 4 = 2)]
+  4.1 Pedagogical Worked Example (p=59, q=29, g=9):
+    Private key x = 7, Public key y = 16
+    Hash z = 15, Nonce k = 10
+    Signature: (r=12, s=7)
+    Verification intermediate: w=25, u1=27, u2=10, v=12
+    Verification (v == r): PASSED
+
+  4.2 Standard NIST FIPS 186-4 DSA (L=1024, N=160):
+    Key Generation Time :   1.31 ms
+    Document Message    : "Official submission of Information Security Project by TRAN HUU QUYET"
+    Signature (r, s)    :
+      r = 0x28115ba9970b406bf9764aa957d32401c6c4384a
+      s = 0x1f2fa5423c236d809e5df5a1c85fd7e4af62fc0
+    Signing Time        :  2.821 ms
+    Verification Time   :  5.025 ms
+    Signature Status    : VALID (PASSED)
+    Tampered Document   : REJECTED (PASSED)
+
+================================================================================
+ALL 4 CRYPTOGRAPHIC ALGORITHMS VERIFIED AND FULLY OPERATIONAL!
+================================================================================

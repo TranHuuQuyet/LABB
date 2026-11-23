@@ -1,0 +1,193 @@
+\documentclass[12pt,a4paper]{report}
+
+% Essential Packages
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{needspace}
+\usepackage{tikz}
+\usetikzlibrary{calc, positioning}
+
+\onehalfspacing
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=red!70!black,
+    urlcolor=teal!70!black
+}
+
+% Code Listing Styling
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    columns=flexible,
+    numbers=left,                    
+    numbersep=6pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,
+    rulecolor=\color{black!20},
+    framesep=4pt,
+    xleftmargin=12pt
+}
+\lstset{style=pythonstyle}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Information Security Course Project}
+\fancyhead[R]{\small TRAN HUU QUYET (066206014296)}
+\fancyfoot[C]{\thepage}
+
+\begin{document}
+
+% -------------------------------------------------------------
+% Title Page (100% English Academic Format with Official UTH Logo)
+% -------------------------------------------------------------
+\begin{titlepage}
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture, overlay]
+        % Outer decorative border
+        \draw[line width=1.5pt, color=blue!85!black] 
+            ($(current page.north west) + (1.2cm,-1.2cm)$) 
+            rectangle ($(current page.south east) + (-1.2cm,1.2cm)$);
+        % Inner fine border (symmetrically inset by 1.35cm)
+        \draw[line width=0.6pt, color=blue!85!black] 
+            ($(current page.north west) + (1.35cm,-1.35cm)$) 
+            rectangle ($(current page.south east) + (-1.35cm,1.35cm)$);
+    \end{tikzpicture}
+    
+    \centering
+    \begin{singlespace}
+    \vspace*{-0.2cm}
+    
+    {\large \textbf{HO CHI MINH CITY UNIVERSITY OF TRANSPORT (UTH)}\par}
+    \vspace{0.15cm}
+    {\large \textbf{INSTITUTE OF INFORMATION TECHNOLOGY AND ELECTRICAL \& ELECTRONICS ENGINEERING}\par}
+    
+    \vspace{0.35cm}
+    \includegraphics[width=0.45\linewidth, height=1.7cm, keepaspectratio]{figures/logo_uth.png}\par
+    \vspace{0.25cm}
+    
+    {\centering \rule{0.75\linewidth}{0.6pt}\par}
+    \vspace{0.35cm}
+    
+    {\Large \textbf{COURSE PROJECT REPORT: INFORMATION SECURITY}\par}
+    \vspace{0.15cm}
+    {\textbf{Course Class ID:} \texttt{012012303303}\par}
+    
+    \vspace{0.6cm}
+    {\normalsize \textbf{PROJECT TOPIC:}\par}
+    \vspace{0.2cm}
+    {\Large \bfseries STUDY AND IMPLEMENTATION OF MODERN CRYPTOGRAPHIC TECHNIQUES FROM FIRST PRINCIPLES\par}
+    \vspace{0.2cm}
+    {\large \textit{(AES-128, RSA, SHA-256, DSA)}\par}
+    
+    \vspace{0.8cm}
+    \begin{minipage}{0.85\textwidth}
+        \large
+        \textbf{Instructor:} \quad \textbf{Dr. Tran The Vinh}\\[0.35cm]
+        \textbf{Student Author:}\\[0.15cm]
+        \begin{tabular}{|l|l|}
+            \hline
+            \textbf{Full Name} & \textbf{Student ID (SID)} \\
+            \hline
+            \textbf{Tran Huu Quyet} & \textbf{066206014296} \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    
+    \vfill
+    {\large \textbf{Ho Chi Minh City, November 2026}\par}
+    \vspace*{0.2cm}
+    \end{singlespace}
+\end{titlepage}
+
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% -------------------------------------------------------------
+% Academic Integrity Statement
+% -------------------------------------------------------------
+\newpage
+\chapter*{Statement of Academic Integrity}
+\addcontentsline{toc}{chapter}{Statement of Academic Integrity}
+
+I, \textbf{TRAN HUU QUYET} (Student ID: \textbf{066206014296}), hereby declare that:
+\begin{enumerate}
+    \item This course project report and its accompanying software implementation are entirely my own original work conducted independently in compliance with the academic integrity regulations.
+    \item All cryptographic algorithms presented in this report---namely \textbf{AES-128}, \textbf{RSA}, \textbf{SHA-256}, and \textbf{DSA}---have been implemented in Python \emph{from first principles} without relying on any third-party cryptographic libraries (such as \texttt{cryptography}, \texttt{PyCryptodome}, \texttt{PyNaCl}, or OpenSSL).
+    \item Artificial Intelligence and supplementary tools have been consulted strictly as assistive reference materials; all analyses, mathematical formulations, software implementations, and experimental verifications have been synthesized, verified, and substantively reviewed by myself.
+    \item All external literature, standards (including NIST FIPS publications and RFCs), and intellectual sources have been duly acknowledged and cited in accordance with academic standards.
+    \item I am fully prepared to defend, explain, and substantiate every aspect of the theoretical models and code routines submitted herewith before the instructor.
+\end{enumerate}
+
+\vspace{1.5cm}
+\begin{flushright}
+    \textit{Student Signature:}\\[0.5cm]
+    \textbf{TRAN HUU QUYET}
+\end{flushright}
+
+% -------------------------------------------------------------
+% Table of Contents & Lists
+% -------------------------------------------------------------
+\clearpage
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+
+% -------------------------------------------------------------
+% Chapters
+% -------------------------------------------------------------
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{chapters/ch1_aes}
+\include{chapters/ch2_rsa}
+\include{chapters/ch3_sha256}
+\include{chapters/ch4_dsa}
+\include{chapters/ch5_evaluation}
+
+% -------------------------------------------------------------
+% References
+% -------------------------------------------------------------
+\begingroup
+\singlespacing
+\small
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\endgroup
+
+\end{document}

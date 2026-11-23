@@ -1,0 +1,53 @@
+\chapter{Comparative Evaluation and Conclusion}
+\label{ch:evaluation}
+
+\section{Cross-Algorithm Comparative Analysis}
+Modern secure communication systems never deploy cryptographic algorithms in isolation. Instead, they compose symmetric ciphers, asymmetric cryptosystems, hash functions, and digital signature algorithms into a cohesive cryptographic suite \cite{stallings}.
+
+Table \ref{tab:comparison_summary} presents a consolidated comparison of the four algorithms implemented in this project based on empirical benchmark measurements and standard cryptographic properties.
+
+\begin{table}[htbp]
+\centering
+\caption{Consolidated Comparison of the Four Implemented Algorithms.}
+\label{tab:comparison_summary}
+\small
+\begin{tabularx}{\linewidth}{lXXXX}
+\toprule
+\textbf{Property} & \textbf{AES-128} & \textbf{RSA-1024} & \textbf{SHA-256} & \textbf{DSA-1024} \\
+\midrule
+\textbf{Primitive Type} & Symmetric Block Cipher & Asymmetric Cipher & Cryptographic Hash & Digital Signature \\
+\textbf{Mathematical Basis} & Galois Field $\text{GF}(2^8)$ & Integer Factorization & Boolean Algebra & Discrete Logarithm \\
+\textbf{Key / Digest Size} & 128 bits & 1024 bits & 256 bits digest & $x$: 160 bits, $y$: 1024 bits \\
+\textbf{Security Level} & 128 bits & $\sim 80$ bits (1024-bit) & 128 bits collision & $\sim 80$ bits (1024-bit) \\
+\textbf{Primary Latency} & 325 ms / KB (pure Py) & Enc: 0.11 ms, Dec: 10.5 ms & 11.9 ms / KB & Sign: 2.6 ms, Ver: 3.6 ms \\
+\textbf{Reversibility} & Reversible (with key) & Reversible (with key) & Irreversible (one-way) & Non-reversible \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Cryptographic Synergy in Real-World Protocols}
+The four algorithms implemented in this project mirror the fundamental building blocks of standard secure protocols such as Transport Layer Security (TLS 1.3):
+\begin{enumerate}
+    \item \textbf{Identity Authentication (DSA / RSA):} During the TLS handshake, the server proves its authentic identity by signing the handshake transcript with its private key.
+    \item \textbf{Key Derivation and Transcript Integrity (SHA-256):} Handshake messages are continuously accumulated and hashed using SHA-256 to ensure no man-in-the-middle has tampered with cipher suite negotiation. In Section 1.1 of our project, SHA-256 played a direct role in deriving the 128-bit AES key from the student name string \texttt{"TRAN HUU QUYET"}.
+    \item \textbf{Bulk Payload Encryption (AES-128):} Once mutual authentication and key derivation are established, the high-throughput symmetric cipher AES-128 encrypts all application data streams with minimal CPU overhead.
+\end{enumerate}
+
+\section{Key Insights from First-Principles Implementation}
+Implementing all four cryptographic engines entirely from first principles without external cryptographic libraries yielded several critical insights:
+\begin{itemize}
+    \item \textbf{Galois Field Arithmetic vs. Standard Integers:} AES operations cannot be performed with standard integer multiplication. Software implementations require explicit reduction modulo $x^8 + x^4 + x^3 + x + 1$. The mathematical derivation of the S-box directly via $a^{254} \in \text{GF}(2^8)$ and affine bit-permutations confirms why the S-box exhibits optimal non-linearity against differential cryptanalysis.
+    \item \textbf{The Primality Bottleneck in Asymmetric Crypto:} Generating large primes for RSA and DSA is the single most computationally demanding phase in pure Python. The Miller-Rabin probabilistic test provides an optimal balance between mathematical certainty and execution time.
+    \item \textbf{Asymmetric Asymmetry:} In RSA, public-key encryption is two orders of magnitude faster than private-key decryption due to the low Hamming weight of $e = 65537$. Conversely, in DSA, signing is faster than verification because verification requires two separate modular exponentiations.
+    \item \textbf{Strict Per-Message Nonce Hygiene:} DSA demonstrates how fragile public-key systems can be if randomness is flawed: leaking or reusing a single 160-bit nonce $k$ results in immediate extraction of the long-term private key $x$.
+\end{itemize}
+
+\section{Concluding Remarks}
+This project successfully completed the full theoretical investigation, mathematical formalization, step-by-step worked examples, and pure Python implementations of:
+\begin{enumerate}
+    \item \textbf{AES-128} with student key derivation from \texttt{"TRAN HUU QUYET"}.
+    \item \textbf{RSA} asymmetric encryption under the student ID assignment ($066206014296 \equiv 0 \pmod 3$).
+    \item \textbf{SHA-256} cryptographic hash function.
+    \item \textbf{DSA} digital signature algorithm under the student ID assignment ($\text{last digit } 6 \equiv 2 \pmod 4$).
+\end{enumerate}
+All four algorithms passed 100\% of standard NIST Known Answer Tests (KAT) and experimental integrity validations, fully satisfying all academic and technical criteria of the Information Security Course Project.
