@@ -167,10 +167,10 @@ We examine the computation of $\text{SHA-256}(\texttt{"abc"})$:
     \item \textbf{Round 0 Execution:}
     With initial registers $(a, b, c, d, e, f, g, h) = (\texttt{6a09e667}, \dots, \texttt{5be0cd19})$ and $K_0 = \texttt{0x428a2f98}$:
     \begin{align*}
-    T_1 &= h \boxplus \Sigma_1(e) \boxplus \text{Ch}(e,f,g) \boxplus K_0 \boxplus W_0 = \texttt{0x868d4086} \\
-    T_2 &= \Sigma_0(a) \boxplus \text{Maj}(a,b,c) = \texttt{0x13c7bb68} \\
-    a_{\text{new}} &= T_1 \boxplus T_2 = \texttt{0x9a54fc0e} \\
-    e_{\text{new}} &= d \boxplus T_1 = \texttt{0x2e061806}
+    T_1 &= h \boxplus \Sigma_1(e) \boxplus \text{Ch}(e,f,g) \boxplus K_0 \boxplus W_0 = \texttt{0x54da50e8} \\
+    T_2 &= \Sigma_0(a) \boxplus \text{Maj}(a,b,c) = \texttt{0x08909ae5} \\
+    a_{\text{new}} &= T_1 \boxplus T_2 = \texttt{0x5d6aebcd} \\
+    e_{\text{new}} &= d \boxplus T_1 = \texttt{0xfa2a4622}
     \end{align*}
     After 64 rounds and state addition, the output matches NIST KAT:
     \begin{equation}

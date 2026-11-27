@@ -145,7 +145,7 @@ Consequently, NIST mandates a minimum modulus size of 2048 bits for current prod
 \section{Advantages, Limitations, and Modern Applications}
 \subsection{Advantages}
 \begin{itemize}
-    \item \textbf{High Verification Efficiency:} Because $e = 65537$ has only two set bits in binary ($10000000000000001_2$), public exponentiation requires only 17 squarings and 1 multiplication.
+    \item \textbf{High Verification Efficiency:} Because $e = 65537$ has only two set bits in binary ($10000000000000001_2$), public exponentiation requires only 16 squarings and 1 multiplication.
     \item \textbf{Dual Capability:} RSA performs both public-key encryption and digital signatures.
 \end{itemize}
 
@@ -190,10 +190,10 @@ For pedagogical clarity, we demonstrate step-by-step RSA execution using small p
     \begin{align*}
     65^1 &\equiv 65 \pmod{3233} \\
     65^2 &= 4225 \equiv 992 \pmod{3233} \\
-    65^4 &\equiv 992^2 = 984064 \equiv 1374 \pmod{3233} \\
-    65^8 &\equiv 1374^2 = 1887876 \equiv 3012 \pmod{3233} \\
-    65^{16} &\equiv 3012^2 = 9072144 \equiv 1968 \pmod{3233} \\
-    c &\equiv (65^{16} \cdot 65^1) = 1968 \times 65 = 127920 \equiv 2790 \pmod{3233}
+    65^4 &\equiv 992^2 = 984064 \equiv 1232 \pmod{3233} \\
+    65^8 &\equiv 1232^2 = 1517824 \equiv 1547 \pmod{3233} \\
+    65^{16} &\equiv 1547^2 = 2393209 \equiv 789 \pmod{3233} \\
+    c &\equiv (65^{16} \cdot 65^1) = 789 \times 65 = 51285 \equiv 2790 \pmod{3233}
     \end{align*}
     Thus, $c = 2790$.
     \item \textbf{Decryption:}
@@ -216,6 +216,8 @@ def generate_rsa_keypair(bits: int = 1024, e: int = 65537):
         q = generate_prime(half_bits)
         if p != q:
             n = p * q
+            if n.bit_length() != bits:
+                continue
             phi = (p - 1) * (q - 1)
             g, _, _ = egcd(e, phi)
             if g == 1:
@@ -224,10 +226,14 @@ def generate_rsa_keypair(bits: int = 1024, e: int = 65537):
 
 def rsa_encrypt(message_int: int, pub_key):
     e, n = pub_key
+    if not (0 <= message_int < n):
+        raise ValueError("Message integer must satisfy 0 <= m < n")
     return pow_mod(message_int, e, n)
 
 def rsa_decrypt(ciphertext_int: int, priv_key):
     d, n = priv_key
+    if not (0 <= ciphertext_int < n):
+        raise ValueError("Ciphertext integer must satisfy 0 <= c < n")
     return pow_mod(ciphertext_int, d, n)
 \end{lstlisting}
 

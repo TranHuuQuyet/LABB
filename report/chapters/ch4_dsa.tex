@@ -231,6 +231,8 @@ We illustrate step-by-step DSA signing and verification using small prime number
 The complete DSA module in \texttt{src/dsa.py} incorporates FIPS 186-4 parameters and first-principles integer math, as presented in Listing \ref{lst:dsa_code}:
 \begin{lstlisting}[language=Python, caption={Core DSA Signing and Verification routines.}, label={lst:dsa_code}]
 def dsa_sign(message: bytes, x: int, p, q, g):
+    if not (0 < x < q):
+        raise ValueError("Private key x must satisfy 0 < x < q")
     z = _hash_to_int(message, q.bit_length())
     while True:
         k = secrets.randbelow(q - 1) + 1
@@ -243,7 +245,7 @@ def dsa_sign(message: bytes, x: int, p, q, g):
 
 def dsa_verify(message: bytes, signature, y: int, p, q, g):
     r, s = signature
-    if not (0 < r < q and 0 < s < q): return False
+    if not (1 < y < p) or not (0 < r < q and 0 < s < q): return False
     z = _hash_to_int(message, q.bit_length())
     w = mod_inverse(s, q)
     u1 = (z * w) % q
