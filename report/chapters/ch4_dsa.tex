@@ -265,13 +265,13 @@ The implementation was tested on the NIST FIPS 186-4 standard domain parameters 
 \toprule
 \textbf{Benchmark Step / Test Case} & \textbf{Observed Experimental Result} \\
 \midrule
-Key Generation ($x, y$) & 1.910 ms \\
-Document Signing Latency ($r, s$) & 2.644 ms \\
-Signature Verification Latency ($v \stackrel{?}{=} r$) & 3.656 ms \\
+Key Generation ($x, y$) & 1.67 ms \\
+Document Signing Latency ($r, s$) & 2.268 ms \\
+Signature Verification Latency ($v \stackrel{?}{=} r$) & 3.083 ms \\
 Valid Signature Verification Status & \textbf{VALID (PASSED)} \\
 Tampered Document Attack Resistance & \textbf{REJECTED (PASSED)} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The verification time ($3.656$ ms) is approximately $1.38 \times$ longer than the signing time ($2.644$ ms) due to the necessity of evaluating two modular exponentiations ($g^{u_1}$ and $y^{u_2}$) during verification.
+The verification time ($3.083$ ms) is approximately $1.36 \times$ longer than the signing time ($2.268$ ms) due to the necessity of evaluating two modular exponentiations ($g^{u_1}$ and $y^{u_2}$) during verification.

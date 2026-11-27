@@ -248,16 +248,16 @@ The implementation was rigorously benchmarked on the student testbed for both pe
 \toprule
 \textbf{Metric / Operation} & \textbf{Observed Experimental Result} \\
 \midrule
-Key Generation Latency (1024-bit $n$) & 841.02 ms \\
+Key Generation Latency (1024-bit $n$) & 681.30 ms \\
 Prime $p$ Bit Length & 512 bits \\
 Prime $q$ Bit Length & 512 bits \\
 Modulus $n$ Bit Length & 1024 bits \\
 Public Exponent $e$ & 65537 \\
-Encryption Latency ($c = m^e \bmod n$) & 0.115 ms \\
-Decryption Latency ($m = c^d \bmod n$) & 10.508 ms \\
+Encryption Latency ($c = m^e \bmod n$) & 0.134 ms \\
+Decryption Latency ($m = c^d \bmod n$) & 16.280 ms \\
 Roundtrip Message Integrity Check & \textbf{PASSED (100\% Exact Match)} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The experimental data highlights the characteristic asymmetric performance ratio of RSA: encryption is approximately $91 \times$ faster than decryption ($0.115$ ms vs. $10.508$ ms) due to the low Hamming weight of $e = 65537$ compared to the dense 1024-bit private exponent $d$.
+The experimental data highlights the characteristic asymmetric performance ratio of RSA: encryption is approximately $121 \times$ faster than decryption ($0.134$ ms vs. $16.280$ ms) due to the low Hamming weight of $e = 65537$ compared to the dense 1024-bit private exponent $d$.
