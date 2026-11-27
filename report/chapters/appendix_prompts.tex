@@ -1,0 +1,139 @@
+\chapter{AI Usage Log and Reproducible Prompts}
+\label{app:prompts}
+
+\section{Overview and Traceability Matrix}
+This project was developed iteratively inside the Antigravity IDE (Session \texttt{91d470d2} on November 23, 2026, followed by final verification in Session \texttt{6cdba895} on November 27, 2026). Rather than using isolated one-shot prompts per file, a unified baseline plan (\textbf{Step 1}) generated the initial Python modules and LaTeX chapters, followed by eight targeted review, layout, and adversarial audit turns (\textbf{Steps 2--9}).
+
+Purely explanatory Q\&A turns that did not modify project artifacts are excluded. Short in-session confirmations (such as \texttt{"ok"}) and screenshot-based layout checks are expanded with their exact in-session context. Original Vietnamese prompts and the transcribed assignment specification (\texttt{de\_bai.md}) are stored in \texttt{src/prompts/}; their faithful English equivalents are provided below for Overleaf compatibility and direct verification.
+
+\begin{table}[H]
+\centering
+\caption{Traceability Matrix of AI-Assisted Components and Prompts.}
+\label{tab:ai_traceability}
+\footnotesize
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Project Component} & \textbf{AI Involvement} & \textbf{Session Steps} & \textbf{Prompt Ref.} \\
+\midrule
+\texttt{src/math\_utils.py} & AI-generated & Steps 1, 7, 8, 9 & \texttt{R-CODE-01} \\
+\texttt{src/sha256.py} & AI-generated & Steps 1, 4, 9 & \texttt{R-CODE-02} \\
+\texttt{src/aes128.py} & AI-generated & Steps 1, 4, 7, 9 & \texttt{R-CODE-03} \\
+\texttt{src/rsa.py} & AI-generated & Steps 1, 8, 9 & \texttt{R-CODE-04} \\
+\texttt{src/dsa.py} & AI-generated & Steps 1, 7, 8, 9 & \texttt{R-CODE-05} \\
+\texttt{src/run\_experiments.py},\newline\texttt{src/\_\_init\_\_.py} & AI-generated & Steps 1, 8 (re-run Step 9) & \texttt{R-CODE-06} \\
+Chapter 1 (\texttt{ch1\_aes.tex}) & AI-drafted, student-checked & Steps 1, 3--7, 9 & \texttt{R-REP-01} (Ch.~\ref{ch:aes}) \\
+Chapter 2 (\texttt{ch2\_rsa.tex}) & AI-drafted, student-checked & Steps 1, 3, 5, 6, 8, 9 & \texttt{R-REP-02} (Ch.~\ref{ch:rsa}) \\
+Chapter 3 (\texttt{ch3\_sha256.tex}) & AI-drafted, student-checked & Steps 1, 3, 6, 9 & \texttt{R-REP-03} (Ch.~\ref{ch:sha256}) \\
+Chapter 4 (\texttt{ch4\_dsa.tex}) & AI-drafted, student-checked & Steps 1, 3, 5--9 & \texttt{R-REP-04} (Ch.~\ref{ch:dsa}) \\
+Chapter 5 (\texttt{ch5\_evaluation.tex}) & AI-drafted from benchmarks & Steps 1, 5, 7, 9 & \texttt{R-REP-05} (Ch.~\ref{ch:evaluation}) \\
+Cover Page, Citations, Layout & AI-formatted from template & Steps 2, 3, 5, 6, 9 & Steps 2--9 (Sec.~\ref{sec:app_session_log}) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\needspace{12\baselineskip}
+\section{Chronological 9-Step Session Prompt Log}
+\label{sec:app_session_log}
+
+\needspace{10\baselineskip}
+\textbf{Step 1 (P01--P05 | 2026-11-23 12:10--12:38)} --- \textit{Created \texttt{src/*.py}, \texttt{report/}, \texttt{README.md}}
+\begin{lstlisting}[style=promptstyle]
+Read all project requirements in src/prompts/de_bai.md and my details (Full Name: TRAN HUU QUYET, SID: 066206014296). Review all requirements carefully and then implement the complete project in English:
+1. Assign the 4 algorithms per specification: AES-128 (128-bit key from first 128 bits of SHA-256("TRAN HUU QUYET")), RSA (last digit 6 mod 3 = 0), SHA-256 (mandatory), and DSA (last digit 6 mod 4 = 2).
+2. Write pure Python code from first principles in src/ without external crypto libraries (no cryptography, PyCryptodome, PyNaCl, hashlib, or OpenSSL), plus an experimental verification script saving output to evidence/terminal_output.txt.
+3. Write an Overleaf-ready LaTeX report in report/ covering all 8 mandatory sections per algorithm (including worked examples, Python code, and benchmarks), plus execution instructions in README.md.
+\end{lstlisting}
+
+\needspace{6\baselineskip}
+\textbf{Step 2 (P06--P07 | 2026-11-23 13:11--13:14)} --- \textit{Modified \texttt{main.tex}, \texttt{README.md}}
+\begin{lstlisting}[style=promptstyle]
+Update the report cover page to match the attached sample report: Instructor is Dr. Tran The Vinh, Course Class ID is 012012303303, verify the current academic year, add the UTH logo, and ensure everything is in English.
+\end{lstlisting}
+
+\needspace{6\baselineskip}
+\textbf{Step 3 (P08--P09 | 2026-11-23 13:18--13:27)} --- \textit{Modified \texttt{main.tex}, \texttt{ch1\_aes.tex}--\texttt{ch4\_dsa.tex}}
+\begin{lstlisting}[style=promptstyle]
+Inspect the entire report down to minor details such as sizing and formatting based on the 3 attached PDF screenshots. Assess objectively whether it is ready to submit and fix any layout issues.
+\end{lstlisting}
+
+\needspace{6\baselineskip}
+\textbf{Step 4 (P10 | 2026-11-23 13:36)} --- \textit{Modified \texttt{ch1\_aes.tex}}
+\begin{lstlisting}[style=promptstyle]
+Verify the correctness of the cryptographic algorithms, Python code, and experimental evidence, then cross-check them directly against the content of the report.
+\end{lstlisting}
+
+\needspace{6\baselineskip}
+\textbf{Step 5 (P11 | 2026-11-23 13:42)} --- \textit{Modified \texttt{references.bib}, \texttt{ch1}, \texttt{ch2}, \texttt{ch4}, \texttt{ch5}}
+\begin{lstlisting}[style=promptstyle]
+Audit all bibliography entries in references.bib and all citations across the chapters to confirm their authenticity and academic accuracy.
+\end{lstlisting}
+
+\needspace{6\baselineskip}
+\textbf{Step 6 (P12--P14 | 2026-11-23 13:46--14:33)} --- \textit{Modified \texttt{main.tex}, \texttt{ch1\_aes.tex}--\texttt{ch4\_dsa.tex}}
+\begin{lstlisting}[style=promptstyle]
+From the attached PDF screenshots, fixing one block caused other blocks to overlap. Carefully inspect the entire LaTeX layout in main.tex and all chapters to eliminate overlapping elements and margin overflows.
+\end{lstlisting}
+
+\needspace{6\baselineskip}
+\textbf{Step 7 (P16 | 2026-11-23 14:42)} --- \textit{Modified \texttt{math\_utils.py}, \texttt{aes128.py}, \texttt{dsa.py}, \texttt{ch1}, \texttt{ch4}, \texttt{ch5}, \texttt{README.md}}
+\begin{lstlisting}[style=promptstyle]
+Perform an independent adversarial review to uncover mathematical mistakes, security vulnerabilities, edge cases in the Python source code, and inconsistencies between the code and the LaTeX report, and resolve them thoroughly (via /doubt-driven-development in the IDE).
+\end{lstlisting}
+
+\needspace{6\baselineskip}
+\textbf{Step 8 (P17 | 2026-11-23 15:03)} --- \textit{Modified \texttt{src/\_\_init\_\_.py}, \texttt{math\_utils.py}, \texttt{rsa.py}, \texttt{dsa.py}, \texttt{run\_experiments.py}, \texttt{ch4}}
+\begin{lstlisting}[style=promptstyle]
+Conduct a multi-axis quality review across the entire project (correctness, readability, architecture, security, and evidence alignment), fix any remaining issues, and re-run all tests (via /code-review-and-quality /boost in the IDE).
+\end{lstlisting}
+
+\needspace{8\baselineskip}
+\textbf{Step 9 (2026-11-27 11:49--12:36)} --- \textit{Modified \texttt{src/*.py}, \texttt{terminal\_output.txt}, \texttt{main.tex}, \texttt{ch1}--\texttt{ch5}, \texttt{appendix\_prompts.tex}}
+\begin{lstlisting}[style=promptstyle]
+Verify and validate the correctness of all cryptographic algorithms, Python source code, and experimental evidence, and cross-check whether the report contents match them completely. Perform an independent comprehensive adversarial check to find any mathematical errors, security vulnerabilities, edge cases in the Python code, and inconsistencies between the code and the LaTeX report, and fix them thoroughly. Inspect the entire report down to minor details such as sizing and formatting, objectively assess whether it is ready for submission, and fix any layout issues.
+\end{lstlisting}
+
+\section{Module-Level Source Code Prompts (\texttt{src/})}
+\label{sec:app_code_prompts}
+Each pair below mirrors the corresponding file in \texttt{src/prompts/} (creation prompt extracted from Step 1; review/hardening prompt from Steps 4, 7, 8, 9).
+
+\needspace{8\baselineskip}
+\textbf{R-CODE-01 --- \texttt{src/math\_utils.py}} (\textit{Steps 1, 7, 8, 9})
+\begin{lstlisting}[style=promptstyle]
+[Creation] Based on src/prompts/de_bai.md, write pure Python src/math_utils.py providing foundational number-theoretic routines from scratch for RSA and DSA (Extended Euclidean GCD, modular inverse, fast modular exponentiation, Miller-Rabin primality testing, secure random large prime generation, and bytes-to-integer conversions) using only Python standard libraries.
+[Review] Adversarially check edge cases in src/math_utils.py (such as negative exponents, invalid moduli, and randomness safety) and add complete type hints and docstrings.
+\end{lstlisting}
+
+\needspace{8\baselineskip}
+\textbf{R-CODE-02 --- \texttt{src/sha256.py}} (\textit{Steps 1, 4, 9})
+\begin{lstlisting}[style=promptstyle]
+[Creation] Based on Sections 1.3 and 2 of src/prompts/de_bai.md, write pure Python src/sha256.py implementing SHA-256 from first principles for student TRAN HUU QUYET (SID: 066206014296). Strictly avoid hashlib or external libraries; implement bit shifts/rotations, logical functions, padding, initial constant derivation, and 64 compression rounds.
+[Check] Verify src/sha256.py accuracy against official NIST test vectors and the report digest values.
+\end{lstlisting}
+
+\needspace{8\baselineskip}
+\textbf{R-CODE-03 --- \texttt{src/aes128.py}} (\textit{Steps 1, 4, 7, 9})
+\begin{lstlisting}[style=promptstyle]
+[Creation] Based on Sections 1.1 and 2 of src/prompts/de_bai.md, write pure Python src/aes128.py implementing AES-128 from first principles for student TRAN HUU QUYET (SID: 066206014296). Without external crypto libraries, implement finite-field arithmetic, S-Box derivation from the mathematical formula, key expansion, block encryption/decryption, CBC mode with PKCS#7 padding, and 128-bit key derivation from SHA-256("TRAN HUU QUYET") via src/sha256.py.
+[Review] Verify against standard NIST test vectors and adversarially check security and input validation in src/aes128.py.
+\end{lstlisting}
+
+\needspace{8\baselineskip}
+\textbf{R-CODE-04 --- \texttt{src/rsa.py}} (\textit{Steps 1, 8, 9})
+\begin{lstlisting}[style=promptstyle]
+[Creation] Based on Sections 1.2 and 2 of src/prompts/de_bai.md, write pure Python src/rsa.py implementing RSA from first principles for student TRAN HUU QUYET (SID: 066206014296, assigned RSA via 6 mod 3 = 0) using routines from src/math_utils.py. Include 1024-bit keypair generation, integer/string encryption and decryption, and a small worked example.
+[Review] Review overall code quality, key-generation correctness, and cleanliness of src/rsa.py, refining any gaps.
+\end{lstlisting}
+
+\needspace{8\baselineskip}
+\textbf{R-CODE-05 --- \texttt{src/dsa.py}} (\textit{Steps 1, 7, 8, 9})
+\begin{lstlisting}[style=promptstyle]
+[Creation] Based on Sections 1.4 and 2 of src/prompts/de_bai.md, write pure Python src/dsa.py implementing DSA from first principles for student TRAN HUU QUYET (SID: 066206014296, assigned DSA via 6 mod 4 = 2) combining src/math_utils.py and src/sha256.py. Include domain parameters, keypair generation, signing, verification, and a small worked example.
+[Review] Adversarially check security risks, verify that worked-example calculations match the report, and review code quality in src/dsa.py.
+\end{lstlisting}
+
+\needspace{8\baselineskip}
+\textbf{R-CODE-06 --- \texttt{src/run\_experiments.py} and \texttt{src/\_\_init\_\_.py}} (\textit{Steps 1, 8})
+\begin{lstlisting}[style=promptstyle]
+[Creation] Based on src/prompts/de_bai.md, write src/run_experiments.py to test and benchmark sha256, aes128, rsa, and dsa for student TRAN HUU QUYET (SID: 066206014296): NIST KAT checks, student AES key derivation, small worked examples, DSA tamper rejection, timing/throughput benchmarks, and saving output to evidence/terminal_output.txt.
+[Review] Review the src/ directory for clean Python packaging, optimize src/run_experiments.py, and re-run all tests.
+\end{lstlisting}

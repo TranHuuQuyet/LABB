@@ -275,3 +275,14 @@ Tampered Document Attack Resistance & \textbf{REJECTED (PASSED)} \\
 \end{table}
 
 The verification time ($3.083$ ms) is approximately $1.36 \times$ longer than the signing time ($2.268$ ms) due to the necessity of evaluating two modular exponentiations ($g^{u_1}$ and $y^{u_2}$) during verification.
+
+\needspace{19\baselineskip}
+\subsection*{AI Assistance and Prompt Provenance}
+\begin{itemize}
+    \item \textbf{AI-Assisted Scope:} Theory draft, DLP proofs, worked example, Listing~\ref{lst:dsa_code}, and Table~\ref{tab:dsa_perf} (paired with \texttt{src/dsa.py}).
+    \item \textbf{Session Steps:} Baseline in \textbf{Step 1} (\texttt{P01}--\texttt{P05}); layout and citations in \textbf{Steps 3, 5, 6}; arithmetic, CSPRNG, and benchmarks verified in \textbf{Steps 7--9}.
+    \item \textbf{Student Verification:} Checked small worked example ($p=59, q=29, v=r=12$), FIPS 186-4 signing/verification, and tampered rejection in \texttt{evidence/\allowbreak terminal\_output.txt}.
+\end{itemize}
+\begin{lstlisting}[style=promptstyle, caption={Compact Prompt (R-REP-04) for Chapter 4: DSA.}, label={lst:prompt_ch4}]
+Following the project specification (Student: TRAN HUU QUYET, SID: 066206014296, assigned DSA via 6 mod 4 = 2), write the DSA chapter in English LaTeX covering all 8 mandatory sections, including a small worked example, pure Python snippets from first principles, and FIPS 186-4 evaluation. Perform an adversarial check of all intermediate modular steps and align Listing 4.1 with src/dsa.py.
+\end{lstlisting}

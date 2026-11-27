@@ -6,6 +6,7 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{tabularx}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -57,6 +58,25 @@
     rulecolor=\color{black!20},
     framesep=4pt,
     xleftmargin=12pt
+}
+\lstdefinestyle{promptstyle}{
+    backgroundcolor=\color{blue!3},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=true,
+    breaklines=true,
+    breakindent=0pt,
+    captionpos=b,
+    keepspaces=true,
+    columns=flexible,
+    numbers=none,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    rulecolor=\color{blue!35!black!35},
+    framesep=5pt,
+    xleftmargin=6pt,
+    xrightmargin=6pt
 }
 \lstset{style=pythonstyle}
 
@@ -147,7 +167,7 @@ I, \textbf{TRAN HUU QUYET} (Student ID: \textbf{066206014296}), hereby declare t
 \begin{enumerate}
     \item This course project report and its accompanying software implementation are entirely my own original work conducted independently in compliance with the academic integrity regulations.
     \item All cryptographic algorithms presented in this report---namely \textbf{AES-128}, \textbf{RSA}, \textbf{SHA-256}, and \textbf{DSA}---have been implemented in Python \emph{from first principles} without relying on any third-party cryptographic libraries (such as \texttt{cryptography}, \texttt{PyCryptodome}, \texttt{PyNaCl}, or OpenSSL).
-    \item Artificial Intelligence and supplementary tools have been consulted strictly as assistive reference materials; all analyses, mathematical formulations, software implementations, and experimental verifications have been synthesized, verified, and substantively reviewed by myself.
+    \item Artificial Intelligence and supplementary tools have been consulted as assistive tools; all AI-assisted components and prompts are disclosed in each chapter, in \texttt{src/prompts/}, and in Appendix~\ref{app:prompts}, while all analyses, code, and test results have been verified by myself.
     \item All external literature, standards (including NIST FIPS publications and RFCs), and intellectual sources have been duly acknowledged and cited in accordance with academic standards.
     \item I am fully prepared to defend, explain, and substantiate every aspect of the theoretical models and code routines submitted herewith before the instructor.
 \end{enumerate}
@@ -190,5 +210,11 @@ I, \textbf{TRAN HUU QUYET} (Student ID: \textbf{066206014296}), hereby declare t
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 \endgroup
+
+% -------------------------------------------------------------
+% Appendix: AI Usage & Prompt Log
+% -------------------------------------------------------------
+\appendix
+\include{chapters/appendix_prompts}
 
 \end{document}

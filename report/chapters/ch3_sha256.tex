@@ -226,3 +226,14 @@ The implementation was verified against three official NIST FIPS 180-4 test vect
 \end{tabular}
 \end{table}
 The experimental results demonstrate linear time complexity $\mathcal{O}(N)$ in terms of the number of 512-bit message blocks.
+
+\needspace{19\baselineskip}
+\subsection*{AI Assistance and Prompt Provenance}
+\begin{itemize}
+    \item \textbf{AI-Assisted Scope:} Theory draft, compression logic, worked example, Listing~\ref{lst:sha256_code}, and Table~\ref{tab:sha_perf} (paired with \texttt{src/sha256.py}).
+    \item \textbf{Session Steps:} Baseline in \textbf{Step 1} (\texttt{P01}--\texttt{P05}); formatting, Round 0 arithmetic, and benchmarks verified in \textbf{Steps 3, 6, 9}.
+    \item \textbf{Student Verification:} Verified all three NIST FIPS 180-4 KAT vectors and throughput measurements against \texttt{evidence/\allowbreak terminal\_output.txt}.
+\end{itemize}
+\begin{lstlisting}[style=promptstyle, caption={Compact Prompt (R-REP-03) for Chapter 3: SHA-256.}, label={lst:prompt_ch3}]
+Following the project specification (Student: TRAN HUU QUYET, SID: 066206014296), write the SHA-256 chapter in English LaTeX covering all 8 mandatory sections, including a step-by-step worked example, pure Python snippets from first principles (without hashlib), and NIST FIPS 180-4 KAT verification and benchmarks.
+\end{lstlisting}
