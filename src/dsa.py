@@ -66,6 +66,8 @@ def dsa_sign(
     """
     Generate DSA signature (r, s) for a message.
     """
+    if not (0 < x < q):
+        raise ValueError("Private key x must satisfy 0 < x < q")
     q_bits = q.bit_length()
     z = _hash_to_int(message, q_bits)
 
@@ -96,7 +98,7 @@ def dsa_verify(
     Verify DSA signature (r, s) against public key y and domain parameters.
     """
     r, s = signature
-    if not (0 < r < q and 0 < s < q):
+    if not (1 < y < p) or not (0 < r < q and 0 < s < q):
         return False
 
     q_bits = q.bit_length()

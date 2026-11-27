@@ -13,6 +13,10 @@ def generate_rsa_keypair(bits: int = 1024, e: int = 65537) -> Tuple[Tuple[int, i
     Guarantees exact bit length for modulus n.
     Returns: ((e, n), (d, n), (p, q))
     """
+    if bits < 8:
+        raise ValueError("RSA modulus bit length must be at least 8")
+    if e < 3 or e % 2 == 0:
+        raise ValueError("Public exponent e must be an odd integer >= 3")
     half_bits = bits // 2
     while True:
         p = generate_prime(half_bits)
@@ -32,16 +36,16 @@ def generate_rsa_keypair(bits: int = 1024, e: int = 65537) -> Tuple[Tuple[int, i
 def rsa_encrypt(message_int: int, pub_key: Tuple[int, int]) -> int:
     """c = m^e mod n"""
     e, n = pub_key
-    if message_int >= n:
-        raise ValueError("Message integer must be less than modulus n")
+    if not (0 <= message_int < n):
+        raise ValueError("Message integer must satisfy 0 <= m < n")
     return pow_mod(message_int, e, n)
 
 
 def rsa_decrypt(ciphertext_int: int, priv_key: Tuple[int, int]) -> int:
     """m = c^d mod n"""
     d, n = priv_key
-    if ciphertext_int >= n:
-        raise ValueError("Ciphertext integer must be less than modulus n")
+    if not (0 <= ciphertext_int < n):
+        raise ValueError("Ciphertext integer must satisfy 0 <= c < n")
     return pow_mod(ciphertext_int, d, n)
 
 

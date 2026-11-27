@@ -24,8 +24,10 @@ def mod_inverse(a: int, m: int) -> int:
     """
     Modular Multiplicative Inverse.
     Computes x such that a * x = 1 (mod m).
-    Raises ValueError if gcd(a, m) != 1.
+    Raises ValueError if m <= 0 or gcd(a, m) != 1.
     """
+    if m <= 0:
+        raise ValueError("Modulus must be positive")
     g, x, _ = egcd(a % m, m)
     if g != 1:
         raise ValueError("Modular inverse does not exist")
@@ -108,7 +110,9 @@ def bytes_to_int(b: bytes) -> int:
 
 
 def int_to_bytes(val: int, length: Optional[int] = None) -> bytes:
-    """Convert unsigned integer to big-endian bytes."""
+    """Convert non-negative unsigned integer to big-endian bytes."""
+    if val < 0:
+        raise ValueError("Value must be non-negative")
     if length is None:
         length = (val.bit_length() + 7) // 8 or 1
     return val.to_bytes(length, "big")

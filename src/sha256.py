@@ -53,7 +53,7 @@ def shr(val: int, shift: int) -> int:
 
 def ch(x: int, y: int, z: int) -> int:
     """Conditional choice function: (x AND y) XOR (NOT x AND z)."""
-    return (x & y) ^ (~x & z)
+    return ((x & y) ^ ((~x & MASK_32) & z)) & MASK_32
 
 
 def maj(x: int, y: int, z: int) -> int:

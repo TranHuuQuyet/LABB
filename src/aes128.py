@@ -194,6 +194,8 @@ def inv_mix_columns(state: List[List[int]]) -> List[List[int]]:
 # --- Block Cipher Core ---
 
 def encrypt_block(block: bytes, round_keys: List[List[List[int]]]) -> bytes:
+    if len(block) != 16:
+        raise ValueError("AES block must be exactly 16 bytes")
     state = bytes_to_state(block)
     state = add_round_key(state, round_keys[0])
 
@@ -211,6 +213,8 @@ def encrypt_block(block: bytes, round_keys: List[List[List[int]]]) -> bytes:
 
 
 def decrypt_block(block: bytes, round_keys: List[List[List[int]]]) -> bytes:
+    if len(block) != 16:
+        raise ValueError("AES block must be exactly 16 bytes")
     state = bytes_to_state(block)
     state = add_round_key(state, round_keys[10])
 
@@ -230,6 +234,8 @@ def decrypt_block(block: bytes, round_keys: List[List[List[int]]]) -> bytes:
 # --- PKCS#7 Padding & Modes ---
 
 def pkcs7_pad(data: bytes, block_size: int = 16) -> bytes:
+    if not (1 <= block_size <= 255):
+        raise ValueError("Block size must be between 1 and 255")
     pad_len = block_size - (len(data) % block_size)
     return data + bytes([pad_len] * pad_len)
 
