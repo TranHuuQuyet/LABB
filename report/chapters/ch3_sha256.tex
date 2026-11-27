@@ -161,9 +161,10 @@ We examine the computation of $\text{SHA-256}(\texttt{"abc"})$:
         \item $W_{15} = \texttt{0x00000018}$
     \end{itemize}
     \item \textbf{Expanded Word $W_{16}$:}
-    \begin{equation}
-    W_{16} = \sigma_1(W_{14}) \boxplus W_9 \boxplus \sigma_0(W_1) \boxplus W_0 = 0 \boxplus 0 \boxplus 0 \boxplus \texttt{0x61626380} = \texttt{0x61626380}
-    \end{equation}
+    \begin{align}
+    W_{16} &= \sigma_1(W_{14}) \boxplus W_9 \boxplus \sigma_0(W_1) \boxplus W_0 \nonumber \\
+           &= 0 \boxplus 0 \boxplus 0 \boxplus \texttt{0x61626380} = \texttt{0x61626380}
+    \end{align}
     \item \textbf{Round 0 Execution:}
     With initial registers $(a, b, c, d, e, f, g, h) = (\texttt{6a09e667}, \dots, \texttt{5be0cd19})$ and $K_0 = \texttt{0x428a2f98}$:
     \begin{align*}
@@ -174,7 +175,7 @@ We examine the computation of $\text{SHA-256}(\texttt{"abc"})$:
     \end{align*}
     After 64 rounds and state addition, the output matches NIST KAT:
     \begin{equation}
-    \text{Digest} = \texttt{ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad}
+    {\small\text{Digest} = {\scriptsize\texttt{ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad}}}
     \end{equation}
 \end{enumerate}
 
