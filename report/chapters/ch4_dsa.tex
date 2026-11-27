@@ -220,7 +220,10 @@ We illustrate step-by-step DSA signing and verification using small prime number
         \end{align*}
         \item Compute $v$:
         \begin{equation}
-        {\small v = ((51 \times 17) \bmod 59) \bmod 29 = (867 \bmod 59) \bmod 29 = 41 \bmod 29 = 12}
+        \begin{aligned}
+        v &= ((51 \times 17) \bmod 59) \bmod 29 \\
+          &= (867 \bmod 59) \bmod 29 = 41 \bmod 29 = 12
+        \end{aligned}
         \end{equation}
     \end{itemize}
     Since $v = 12$ and $r = 12$, $v = r$ is satisfied, successfully verifying the signature.
