@@ -38,7 +38,6 @@ LABB/
 │       └── ch5_evaluation.tex    # Comparative analysis & conclusion
 ├── evidence/                     # Experimental execution proof for submission
 │   └── terminal_output.txt       # Raw captured execution log of all test passes
-├── ORAL_DEFENSE_GUIDE.md         # Comprehensive Q&A and code explanation guide for interviews
 └── README.md                     # This file
 ```
 
