@@ -220,7 +220,7 @@ We illustrate step-by-step DSA signing and verification using small prime number
         \end{align*}
         \item Compute $v$:
         \begin{equation}
-        v = ((51 \times 17) \bmod 59) \bmod 29 = (867 \bmod 59) \bmod 29 = 41 \bmod 29 = 12
+        {\small v = ((51 \times 17) \bmod 59) \bmod 29 = (867 \bmod 59) \bmod 29 = 41 \bmod 29 = 12}
         \end{equation}
     \end{itemize}
     Since $v = 12$ and $r = 12$, $v = r$ is satisfied, successfully verifying the signature.
@@ -265,16 +265,16 @@ The implementation was tested on the NIST FIPS 186-4 standard domain parameters 
 \toprule
 \textbf{Benchmark Step / Test Case} & \textbf{Observed Experimental Result} \\
 \midrule
-Key Generation ($x, y$) & 1.67 ms \\
-Document Signing Latency ($r, s$) & 2.268 ms \\
-Signature Verification Latency ($v \stackrel{?}{=} r$) & 3.083 ms \\
+Key Generation ($x, y$) & 1.30 ms \\
+Document Signing Latency ($r, s$) & 2.641 ms \\
+Signature Verification Latency ($v \stackrel{?}{=} r$) & 4.727 ms \\
 Valid Signature Verification Status & \textbf{VALID (PASSED)} \\
 Tampered Document Attack Resistance & \textbf{REJECTED (PASSED)} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The verification time ($3.083$ ms) is approximately $1.36 \times$ longer than the signing time ($2.268$ ms) due to the necessity of evaluating two modular exponentiations ($g^{u_1}$ and $y^{u_2}$) during verification.
+The verification time ($4.727$ ms) is approximately $1.79 \times$ longer than the signing time ($2.641$ ms) due to the necessity of evaluating two modular exponentiations ($g^{u_1}$ and $y^{u_2}$) during verification.
 
 \needspace{19\baselineskip}
 \subsection*{AI Assistance and Prompt Provenance}

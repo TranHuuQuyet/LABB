@@ -20,25 +20,33 @@
 
 ```text
 LABB/
-├── src/                          # Pure Python implementations (First Principles)
-│   ├── math_utils.py             # Number-theoretic routines (Miller-Rabin, EGCD, pow_mod)
-│   ├── sha256.py                 # Pure Python SHA-256 (FIPS 180-4)
-│   ├── aes128.py                 # Pure Python AES-128 (FIPS 197, ECB/CBC, PKCS#7)
-│   ├── rsa.py                    # Pure Python RSA (KeyGen, Encrypt, Decrypt)
-│   ├── dsa.py                    # Pure Python DSA (FIPS 186-4, Sign, Verify)
-│   └── run_experiments.py        # Automated test suite, NIST KAT vectors & benchmarks
-├── report/                       # Complete LaTeX report (Overleaf-ready)
-│   ├── main.tex                  # Master document with Title page, TOC, Integrity statement
-│   ├── references.bib            # Academic citations (NIST FIPS, RFCs, Papers)
+├── src/                                  # Pure Python implementations (First Principles)
+│   ├── __init__.py                       # Package marker and metadata
+│   ├── math_utils.py                     # Number-theoretic routines (Miller-Rabin, EGCD, pow_mod)
+│   ├── sha256.py                         # Pure Python SHA-256 (FIPS 180-4)
+│   ├── aes128.py                         # Pure Python AES-128 (FIPS 197, ECB/CBC, PKCS#7)
+│   ├── rsa.py                            # Pure Python RSA (KeyGen, Encrypt, Decrypt)
+│   ├── dsa.py                            # Pure Python DSA (FIPS 186-4, Sign, Verify)
+│   ├── run_experiments.py                # Automated test suite, NIST KAT vectors & benchmarks
+│   └── prompts/                          # Assignment spec (de_bai.md) & reproducible prompt log
+├── report/                               # Complete LaTeX report (Overleaf-ready)
+│   ├── main.tex                          # Master document with Title page, TOC, Integrity statement
+│   ├── references.bib                    # Academic citations (NIST FIPS, RFCs, Papers)
+│   ├── figures/
+│   │   └── logo_uth.png                  # University logo for cover page
 │   └── chapters/
-│       ├── ch1_aes.tex           # AES-128 (8 mandatory sections)
-│       ├── ch2_rsa.tex           # RSA (8 mandatory sections)
-│       ├── ch3_sha256.tex        # SHA-256 (8 mandatory sections)
-│       ├── ch4_dsa.tex           # DSA (8 mandatory sections)
-│       └── ch5_evaluation.tex    # Comparative analysis & conclusion
-├── evidence/                     # Experimental execution proof for submission
-│   └── terminal_output.txt       # Raw captured execution log of all test passes
-└── README.md                     # This file
+│       ├── ch1_aes.tex                   # AES-128 (8 mandatory sections + prompt provenance)
+│       ├── ch2_rsa.tex                   # RSA (8 mandatory sections + prompt provenance)
+│       ├── ch3_sha256.tex                # SHA-256 (8 mandatory sections + prompt provenance)
+│       ├── ch4_dsa.tex                   # DSA (8 mandatory sections + prompt provenance)
+│       ├── ch5_evaluation.tex            # Comparative analysis & conclusion + prompt provenance
+│       └── appendix_prompts.tex          # Appendix A: Traceability matrix & prompt log
+├── evidence/                             # Experimental execution proof for submission
+│   ├── terminal_output.txt               # Raw captured execution log of all test passes
+│   ├── terminal_output_part1.png         # Rendered terminal capture (Header, SHA-256, AES-128)
+│   └── terminal_output_part2.png         # Rendered terminal capture (RSA, DSA, Final Status)
+├── report.zip                            # Overleaf-ready archive of report/
+└── README.md                             # This file
 ```
 
 ---
@@ -58,7 +66,7 @@ As mandated by the course requirements:
 ## 3. How to Run the Software Implementation
 
 ### Prerequisites
-- Python 3.8+ (using only standard built-in libraries `math`, `random`, `sys`, `time`).
+- Python 3.8+ (using only standard built-in libraries `math`, `os`, `secrets`, `sys`, `time`, `typing`).
 
 ### Run All Verifications and Benchmarks
 To execute the automated evaluation suite (validates NIST Known Answer Tests, student-specific key derivation, and performance benchmarks):
@@ -68,7 +76,7 @@ python3 src/run_experiments.py
 ```
 
 ### Inspect Output Evidence
-The execution automatically writes the full terminal output to:
+The execution automatically writes the full terminal output to `evidence/terminal_output.txt`, accompanied by terminal execution screenshots (`evidence/terminal_output_part1.png`, `evidence/terminal_output_part2.png`):
 ```bash
 cat evidence/terminal_output.txt
 ```

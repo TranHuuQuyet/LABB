@@ -210,6 +210,10 @@ The implementation avoids external math modules, relying on our own Miller-Rabin
 Listing \ref{lst:rsa_code} illustrates key generation and exponentiation:
 \begin{lstlisting}[language=Python, caption={RSA key generation and modular exponentiation.}, label={lst:rsa_code}]
 def generate_rsa_keypair(bits: int = 1024, e: int = 65537):
+    if bits < 8:
+        raise ValueError("RSA modulus bit length must be at least 8")
+    if e < 3 or e % 2 == 0:
+        raise ValueError("Public exponent e must be an odd integer >= 3")
     half_bits = bits // 2
     while True:
         p = generate_prime(half_bits)
@@ -248,19 +252,19 @@ The implementation was rigorously benchmarked on the student testbed for both pe
 \toprule
 \textbf{Metric / Operation} & \textbf{Observed Experimental Result} \\
 \midrule
-Key Generation Latency (1024-bit $n$) & 681.30 ms \\
+Key Generation Latency (1024-bit $n$) & 901.61 ms \\
 Prime $p$ Bit Length & 512 bits \\
 Prime $q$ Bit Length & 512 bits \\
 Modulus $n$ Bit Length & 1024 bits \\
 Public Exponent $e$ & 65537 \\
-Encryption Latency ($c = m^e \bmod n$) & 0.134 ms \\
-Decryption Latency ($m = c^d \bmod n$) & 16.280 ms \\
+Encryption Latency ($c = m^e \bmod n$) & 0.116 ms \\
+Decryption Latency ($m = c^d \bmod n$) & 9.559 ms \\
 Roundtrip Message Integrity Check & \textbf{PASSED (100\% Exact Match)} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The experimental data highlights the characteristic asymmetric performance ratio of RSA: encryption is approximately $121 \times$ faster than decryption ($0.134$ ms vs. $16.280$ ms) due to the low Hamming weight of $e = 65537$ compared to the dense 1024-bit private exponent $d$.
+The experimental data highlights the characteristic asymmetric performance ratio of RSA: encryption is approximately $82 \times$ faster than decryption ($0.116$ ms vs. $9.559$ ms) due to the low Hamming weight of $e = 65537$ compared to the dense 1024-bit private exponent $d$.
 
 \needspace{19\baselineskip}
 \subsection*{AI Assistance and Prompt Provenance}

@@ -22,9 +22,9 @@ Implementation: 100% Python from first principles (No external crypto libs)
     Status  : PASSED (MATCH NIST KAT)
 
   SHA-256 Computational Throughput Benchmark:
-    Payload:  1 KB | Time:   11.76 ms | Speed:    85.02 KB/s
-    Payload: 10 KB | Time:   81.81 ms | Speed:   122.23 KB/s
-    Payload: 50 KB | Time:  466.82 ms | Speed:   107.11 KB/s
+    Payload:  1 KB | Time:   15.76 ms | Speed:    63.45 KB/s
+    Payload: 10 KB | Time:  105.56 ms | Speed:    94.73 KB/s
+    Payload: 50 KB | Time:  414.75 ms | Speed:   120.55 KB/s
 
 [SECTION 2: AES-128 SYMMETRIC ENCRYPTION EVALUATION]
   2.1 Student Secret Key Derivation (Section 1.1):
@@ -46,9 +46,9 @@ Implementation: 100% Python from first principles (No external crypto libs)
     Integrity Check  : PASSED (Exact match)
 
   AES-128 CBC Benchmark:
-    Payload:  1 KB | Enc: 167.20 ms (   5.98 KB/s) | Dec: 269.58 ms (   3.71 KB/s)
-    Payload:  2 KB | Enc: 314.79 ms (   6.35 KB/s) | Dec: 656.99 ms (   3.04 KB/s)
-    Payload:  5 KB | Enc: 677.56 ms (   7.38 KB/s) | Dec: 1278.48 ms (   3.91 KB/s)
+    Payload:  1 KB | Enc: 102.66 ms (   9.74 KB/s) | Dec: 229.38 ms (   4.36 KB/s)
+    Payload:  2 KB | Enc: 201.95 ms (   9.90 KB/s) | Dec: 914.18 ms (   2.19 KB/s)
+    Payload:  5 KB | Enc: 568.54 ms (   8.79 KB/s) | Dec: 1051.75 ms (   4.75 KB/s)
 
 [SECTION 3: RSA ASYMMETRIC CRYPTOGRAPHY EVALUATION (SID mod 3 = 0)]
   3.1 Pedagogical Worked Example (p=61, q=53):
@@ -58,15 +58,15 @@ Implementation: 100% Python from first principles (No external crypto libs)
     Correctness: PASSED
 
   3.2 Industrial-Grade Key Generation (1024-bit RSA):
-    Key Generation Time : 681.30 ms
+    Key Generation Time : 901.61 ms
     Modulus n bit length: 1024 bits
     Prime p bit length  : 512 bits
     Prime q bit length  : 512 bits
     Plaintext Message   : "Hello RSA - TRAN HUU QUYET"
-    Ciphertext Integer  : 1128501022364159761860400304880525739401... (truncated)
+    Ciphertext Integer  : 7782248111381073149185905066112666809752... (truncated)
     Decrypted Message   : "Hello RSA - TRAN HUU QUYET"
-    Encryption Time     :  0.134 ms
-    Decryption Time     : 16.280 ms
+    Encryption Time     :  0.116 ms
+    Decryption Time     :  9.559 ms
     Roundtrip Status    : PASSED (Exact match)
 
 [SECTION 4: DSA DIGITAL SIGNATURE EVALUATION (SID mod 4 = 2)]
@@ -78,13 +78,13 @@ Implementation: 100% Python from first principles (No external crypto libs)
     Verification (v == r): PASSED
 
   4.2 Standard NIST FIPS 186-4 DSA (L=1024, N=160):
-    Key Generation Time :   1.67 ms
+    Key Generation Time :   1.30 ms
     Document Message    : "Official submission of Information Security Project by TRAN HUU QUYET"
     Signature (r, s)    :
-      r = 0x59ca5465531c27e8153591fb5b457d98d972525
-      s = 0x6243bea207d5810a341088e0b09538aef4e2cd95
-    Signing Time        :  2.268 ms
-    Verification Time   :  3.083 ms
+      r = 0x1f9a1e6c68b1dfbba0c28db5c2ba35063576059e
+      s = 0x93fbd470ac0dff2de6d7bc04ca06816976ac8969
+    Signing Time        :  2.641 ms
+    Verification Time   :  4.727 ms
     Signature Status    : VALID (PASSED)
     Tampered Document   : REJECTED (PASSED)
 
